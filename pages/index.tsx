@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styled from "styled-components";
+import MainContainer from "../components/Ui/MainContainer";
 
 const Attribution = styled.a`
   color: hsl(228, 45%, 44%);
@@ -47,6 +48,7 @@ const Home: NextPage = () => {
         <Title>
           <Image alt="Pokemon Logo" layout="fill" src="/pokemon-logo.png" />
         </Title>
+        <MainContainer>Test</MainContainer>
       </Main>
 
       <Footer>
