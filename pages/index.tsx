@@ -29,10 +29,10 @@ const Main = styled.main`
 `;
 
 const Title = styled.h1`
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
-  text-align: center;
+  height: 266.75px;
+  max-width: 90%;
+  position: relative;
+  width: 25rem;
 `;
 
 const Home: NextPage = () => {
@@ -45,7 +45,9 @@ const Home: NextPage = () => {
       </Head>
 
       <Main>
-        <Title>Pokédex</Title>
+        <Title>
+          <Image alt="Pokemon Logo" layout="fill" src="/pokemon-logo.png" />
+        </Title>
       </Main>
 
       <Footer>
