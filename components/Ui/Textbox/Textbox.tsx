@@ -10,7 +10,7 @@ type TextboxProps = {
 
 const Textbox = ({ children, placeholder }: TextboxProps) => {
   return (
-    <Styles.TextboxContainer>
+    <Styles.TextboxContainer className="jsTextboxContainer">
       <div className="search-icon-container">
         <SearchIcon sx={{ color: Colors.DARK_CHARCOAL }} />
       </div>
