@@ -1,13 +1,23 @@
 import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import Textbox from "../Textbox";
 
 describe("Textbox", () => {
   it("should render", () => {
-    render(<Textbox placeholder="Sample placeholder" />);
+    const { getByRole } = render(<Textbox placeholder="Sample placeholder" />);
 
-    const textboxContainer = document.querySelector(".jsTextboxContainer");
+    const textbox = getByRole("textbox", { name: "pokemon-search" });
 
-    expect(textboxContainer).toBeInTheDocument();
+    expect(textbox).toBeInTheDocument();
+  });
+
+  it("should accept text input", () => {
+    const { getByRole } = render(<Textbox placeholder="Sample placeholder" />);
+
+    const textbox = getByRole("textbox", { name: "pokemon-search" });
+
+    fireEvent.change(textbox, { target: { value: "pokemon" } });
+
+    expect(textbox).toHaveValue("pokemon");
   });
 });
