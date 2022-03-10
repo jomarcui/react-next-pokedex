@@ -1,9 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { Provider } from "react-redux";
 import styled from "styled-components";
 import ComponentsSearch from "../components/Search";
 import MainContainer from "../components/Ui/MainContainer";
+
+//#region Styles
 
 const Attribution = styled.a`
   color: hsl(228, 45%, 44%);
@@ -36,18 +39,25 @@ const Title = styled.h1`
   width: 25rem;
 `;
 
+//#endregion Styles
+
 const Home: NextPage = () => {
   return (
     <Container>
       <Head>
-        <title>Pokedex</title>
+        <title>Pokédex</title>
         <meta name="description" content="Next.js project" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Main>
         <Title>
-          <Image alt="Pokemon Logo" layout="fill" src="/pokemon-logo.png" />
+          <Image
+            alt="Pokémon Logo"
+            layout="fill"
+            priority
+            src="/pokemon-logo.png"
+          />
         </Title>
         <MainContainer>
           <div>
