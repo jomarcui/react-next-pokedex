@@ -1,4 +1,4 @@
-export const Colors = {
+export const Colors: { [key: string]: string } = {
   BLACK: "hsl(0, 0%, 0%)",
   VERMILION: "hsl(11, 89%, 47%)",
   DEEP_CARROT_ORANGE: "hsl(19, 85%, 56%)",
@@ -11,4 +11,23 @@ export const Colors = {
   PHILIPPINE_GRAY: "hsl(0, 0%, 57%)",
   CULTURED: "hsl(0, 0%, 96%)",
   WHITE: "hsl(0, 0%, 100%)",
+
+  BUG: "hsl(129, 38%, 49%)",
+  DRAGON: "hsl(219, 75%, 42%)",
+  FAIRY: "hsl(19, 85%, 56%)",
+  FIRE: "hsl(11, 89%, 47%)",
+  GHOST: "hsl(263, 51%, 57%)",
+  GROUND: "hsl(46, 79%, 54%)",
+  NORMAL: "hsl(0, 0%, 96%)",
+  PSYCHIC: "hsl(19, 85%, 56%)",
+  STEEL: "hsl(0, 0%, 57%)",
+  DARK: "hsl(0, 0%, 57%)",
+  ELECTRIC: "hsl(46, 79%, 54%)",
+  FIGHTING: "hsl(11, 89%, 47%)",
+  FLYING: "hsl(219, 75%, 42%)",
+  GRASS: "hsl(129, 38%, 49%)",
+  ICE: "hsl(197, 68%, 52%)",
+  POISON: "hsl(263, 51%, 57%)",
+  ROCK: "hsl(46, 79%, 54%)",
+  WATER: "hsl(197, 68%, 52%)",
 };

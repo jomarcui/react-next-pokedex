@@ -7,7 +7,9 @@ export const pokemonStore = configureStore({
     [pokemonApi.reducerPath]: pokemonApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(pokemonApi.middleware),
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(pokemonApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { MouseEvent, ReactNode } from "react";
 import * as Styles from "./Button.styles";
 
 type ButtonProps = {
@@ -10,11 +10,21 @@ type ButtonProps = {
   shadowColor?: string;
   shadowed?: boolean;
   width?: number | string;
+  handleClick?: () => void;
 };
 
 const Button = (buttonProps: ButtonProps) => {
-  const { children, ...otherProps } = buttonProps;
-  return <Styles.Button {...otherProps}>{children}</Styles.Button>;
+  const { children, handleClick: _handleClick, ...otherProps } = buttonProps;
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    if (_handleClick) _handleClick();
+  };
+
+  return (
+    <Styles.Button {...otherProps} onClick={handleClick}>
+      {children}
+    </Styles.Button>
+  );
 };
 
 export default Button;
