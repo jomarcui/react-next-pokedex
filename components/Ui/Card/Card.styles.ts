@@ -10,7 +10,7 @@ interface ICard {
   height?: number;
   shadowColor?: string;
   shadowed?: boolean;
-  width?: number;
+  width?: number | string;
 }
 
 export const Card = styled.div<ICard>`
@@ -23,7 +23,7 @@ export const Card = styled.div<ICard>`
   box-shadow: ${({ shadowColor, shadowed }) =>
     shadowed
       ? `0 .5rem 1rem ${
-          shadowColor ? makeShadowColor(shadowColor) : "rgba(0,0,0,.15)"
+          shadowColor ? makeShadowColor(shadowColor, 0.15) : "rgba(0,0,0,.15)"
         }!important`
       : "initial"};
   color: ${({ color }) => color || Colors.BLACK};
@@ -31,7 +31,10 @@ export const Card = styled.div<ICard>`
   flex-direction: column;
   height: ${({ height }) => (height ? `${height}px` : "auto")};
   padding: 1rem;
-  width: ${({ width }) => (width ? `${width}px !important` : "auto")};
+  width: ${({ width }) =>
+    width
+      ? `${isNaN(Number(width)) ? width : `${width}px`} !important`
+      : "auto"};
 
   @media (min-width: ${Screen.EXTRA_SMALL}) {
     background-position: 115px -238px;
@@ -46,7 +49,7 @@ export const Card = styled.div<ICard>`
   }
 
   @media (min-width: ${Screen.LARGE}) {
-    width: ${Screen.LARGE};
+    width: ${Screen.LARGE} !important;
     background-position: 652px -238px;
   }
 `;

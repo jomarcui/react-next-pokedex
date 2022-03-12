@@ -9,7 +9,7 @@ type CardProps = {
   height?: number;
   shadowColor?: string;
   shadowed?: boolean;
-  width?: number;
+  width?: number | string;
 };
 
 const Card = (cardProps: CardProps) => {

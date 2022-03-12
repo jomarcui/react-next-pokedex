@@ -1,8 +1,8 @@
-export const makeShadowColor = (shadowColor: string) => {
+export const makeShadowColor = (shadowColor: string, opacity: number) => {
   const pattern = /\(([^)]+)\)/;
   const values = shadowColor.match(pattern)?.pop()?.split(",");
 
-  values?.push(" .15");
+  values?.push(opacity.toString());
 
   return `hsla(${values?.join()})`;
 };
