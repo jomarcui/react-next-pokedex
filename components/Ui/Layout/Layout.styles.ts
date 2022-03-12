@@ -21,7 +21,6 @@ export const Main = styled.main`
   flex: 1;
   flex-direction: column;
   justify-content: center;
-  padding: 4rem 0;
 `;
 
 export const Title = styled.h1`

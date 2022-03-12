@@ -26,3 +26,9 @@ export const ButtonContainer = styled.div`
     justify-content: space-between;
   }
 `;
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+`;

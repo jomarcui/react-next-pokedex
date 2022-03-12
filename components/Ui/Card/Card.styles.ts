@@ -45,7 +45,7 @@ export const Card = styled.div<ICard>`
   }
 
   @media (min-width: ${Screen.MEDIUM}) {
-    background-position: 144px -238px;
+    background-position: 364px -238px;
   }
 
   @media (min-width: ${Screen.LARGE}) {

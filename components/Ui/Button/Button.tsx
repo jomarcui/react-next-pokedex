@@ -3,6 +3,7 @@ import * as Styles from "./Button.styles";
 
 type ButtonProps = {
   backgroundColor?: string;
+  backgroundColorOpacity?: number;
   backgroundImageColor?: string;
   children?: ReactNode;
   color?: string;

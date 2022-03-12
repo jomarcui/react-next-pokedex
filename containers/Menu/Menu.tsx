@@ -42,10 +42,10 @@ const menu = [
 const Menu = () => {
   return (
     <ComponentsUiCard width="100%">
-      <div>
+      <Styles.HeaderContainer>
         <h2>What Pokémon are you looking for?</h2>
-        <ComponentsSearch style={{ margin: "2rem 0" }} />
-      </div>
+        <ComponentsSearch />
+      </Styles.HeaderContainer>
       <Styles.ButtonContainer>
         {menu.map(({ backgroundColor, color, name, url }) => (
           <ComponentsUiButton
