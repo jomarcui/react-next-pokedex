@@ -39,9 +39,11 @@ const Pokemon = () => {
         <div style={{ display: "flex", gap: "1rem" }}>
           {menu.map(({ backgroundColor, color, name }) => (
             <ComponentsUiCard
+              shadowed
               backgroundColor={backgroundColor}
               color={color}
               key={name}
+              shadowColor={backgroundColor}
               width={200}
             >
               {name}

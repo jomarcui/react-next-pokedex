@@ -7,6 +7,8 @@ interface ICard {
   backgroundImageColor?: string;
   color?: string;
   height?: number;
+  shadowColor?: string;
+  shadowed?: boolean;
   width?: number;
 }
 
@@ -17,6 +19,12 @@ export const Card = styled.div<ICard>`
     no-repeat right top;
   background-size: 501px;
   border-radius: 1rem;
+  box-shadow: ${({ shadowColor, shadowed }) =>
+    shadowed
+      ? `0 .5rem 1rem ${
+          shadowColor ? makeShadowColor(shadowColor) : "rgba(0,0,0,.15)"
+        }!important`
+      : "initial"};
   color: ${({ color }) => (color ? color : Colors.BLACK)};
   display: flex;
   flex-direction: column;
@@ -41,3 +49,12 @@ export const Card = styled.div<ICard>`
     background-position: 652px -238px;
   }
 `;
+
+const makeShadowColor = (shadowColor: string) => {
+  const pattern = /\(([^)]+)\)/;
+  const values = shadowColor.match(pattern)?.pop()?.split(",");
+
+  values?.push(" .15");
+
+  return `hsla(${values?.join()})`;
+};

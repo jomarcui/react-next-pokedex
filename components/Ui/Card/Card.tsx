@@ -7,28 +7,14 @@ type CardProps = {
   children: ReactNode;
   color?: string;
   height?: number;
+  shadowColor?: string;
+  shadowed?: boolean;
   width?: number;
 };
 
-const Card = ({
-  backgroundColor,
-  backgroundImageColor,
-  children,
-  color,
-  height,
-  width,
-}: CardProps) => {
-  return (
-    <Styles.Card
-      backgroundColor={backgroundColor}
-      backgroundImageColor={backgroundImageColor}
-      color={color}
-      height={height}
-      width={width}
-    >
-      {children}
-    </Styles.Card>
-  );
+const Card = (cardProps: CardProps) => {
+  const { children, ...otherProps } = cardProps;
+  return <Styles.Card {...otherProps}>{children}</Styles.Card>;
 };
 
 export default Card;
