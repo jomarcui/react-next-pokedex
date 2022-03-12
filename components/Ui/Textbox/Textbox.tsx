@@ -1,22 +1,23 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, CSSProperties, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import * as Styles from "./Textbox.styles";
 import { Colors } from "../../../enum/colors";
 
 type TextboxProps = {
-  placeholder: string;
+  placeholder?: string;
+  style?: CSSProperties;
 };
 
-const Textbox = ({ placeholder }: TextboxProps) => {
+const Textbox = ({ placeholder, style }: TextboxProps) => {
   const [searchKeyword, setSearchKeyword] = useState("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setSearchKeyword(e.target.value);
 
   return (
-    <Styles.TextboxContainer className="jsTextboxContainer">
+    <Styles.TextboxContainer className="jsTextboxContainer" style={style}>
       <div className="search-icon-container">
-        <SearchIcon sx={{ color: Colors.DARK_CHARCOAL }} />
+        <SearchIcon sx={{ color: Colors.PHILIPPINE_GRAY }} />
       </div>
       <Styles.Textbox
         aria-label="pokemon-search"

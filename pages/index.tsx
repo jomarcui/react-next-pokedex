@@ -1,10 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { Provider } from "react-redux";
 import styled from "styled-components";
-import ComponentsSearch from "../components/Search";
-import MainContainer from "../components/Ui/MainContainer";
+import ContainersPokemon from "../containers/Pokemon";
 
 //#region Styles
 
@@ -59,12 +57,7 @@ const Home: NextPage = () => {
             src="/pokemon-logo.png"
           />
         </Title>
-        <MainContainer>
-          <div>
-            <h2>What Pokémon are you looking for?</h2>
-            <ComponentsSearch />
-          </div>
-        </MainContainer>
+        <ContainersPokemon />
       </Main>
 
       <Footer>
