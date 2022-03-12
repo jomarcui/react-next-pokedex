@@ -1,6 +1,7 @@
 import { Provider } from "react-redux";
 import { pokemonStore } from "../../store/pokemon";
 import ComponentsSearch from "../../components/Search";
+import ComponentsUiButton from "../../components/Ui/Button";
 import ComponentsUiCard from "../../components/Ui/Card";
 import { Colors } from "../../enum/colors";
 
@@ -36,18 +37,25 @@ const Pokemon = () => {
           <h2>What Pokémon are you looking for?</h2>
           <ComponentsSearch style={{ margin: "2rem 0" }} />
         </div>
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "1rem",
+            position: "relative",
+          }}
+        >
           {menu.map(({ backgroundColor, color, name }) => (
-            <ComponentsUiCard
+            <ComponentsUiButton
               shadowed
               backgroundColor={backgroundColor}
               color={color}
               key={name}
               shadowColor={backgroundColor}
-              width={200}
+              width="100%"
             >
               {name}
-            </ComponentsUiCard>
+            </ComponentsUiButton>
           ))}
         </div>
       </ComponentsUiCard>

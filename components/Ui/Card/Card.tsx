@@ -4,7 +4,7 @@ import * as Styles from "./Card.styles";
 type CardProps = {
   backgroundColor?: string;
   backgroundImageColor?: string;
-  children: ReactNode;
+  children?: ReactNode;
   color?: string;
   height?: number;
   shadowColor?: string;
