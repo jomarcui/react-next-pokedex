@@ -1,6 +1,6 @@
 import { Colors } from "../../enum/colors";
 import ComponentsSearch from "../../components/Search";
-import ComponentsUiButton from "../../components/Ui/Button";
+import ComponentsUiButton from "../../components/Ui/Link";
 import ComponentsUiCard from "../../components/Ui/Card";
 
 import * as Styles from "./Menu.styles";

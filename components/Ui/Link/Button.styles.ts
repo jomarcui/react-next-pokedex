@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 import { Colors } from "../../../enum/colors";
 import { changeOpacity, makeShadowColor } from "../../../helpers/colors";
@@ -14,7 +15,7 @@ interface IButton {
   width?: number | string;
 }
 
-export const Button = styled.button<IButton>`
+export const Button = styled(Link)<IButton>`
   background: ${({ backgroundColor, backgroundColorOpacity }) =>
       backgroundColor
         ? changeOpacity(backgroundColor, backgroundColorOpacity || 1)

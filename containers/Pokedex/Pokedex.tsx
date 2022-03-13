@@ -5,7 +5,7 @@ import {
   useGetPokemonByNameQuery,
   useGetPokemonQuery,
 } from "../../services/pokemon";
-import ComponentsUiButton from "../../components/Ui/Button";
+import ComponentsUiButton from "../../components/Ui/Link";
 import ComponentsUiCard from "../../components/Ui/Card";
 import ComponentsUiLoader from "../../components/Ui/Loader";
 import Image from "next/image";
