@@ -1,5 +1,4 @@
-import { Key, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { Key, useEffect, useState, VFC } from "react";
 import {
   useGetPokemonByNameQuery,
   useGetSpecieQuery,
@@ -11,19 +10,40 @@ import { Colors } from "../../enum/colors";
 import Image from "next/image";
 import { formatId } from "../../helpers/pokemon";
 
-type DetailsProps = {
-  name: string | string[] | undefined;
-};
+interface IDetails {
+  pokemon: any;
+}
 
 type MasterContainerProps = {
   pokemon: any;
 };
 
+interface IPokemon {
+  name: string;
+}
+
 const lightBackgroundColors = [Colors.NORMAL];
 
-const Details = ({ name }: DetailsProps) => {
+const Details: VFC<IDetails> = (pokemon) => {
+  const { types } = pokemon;
+
+  const tabs = [
+    { id: 0, name: "About" },
+    { id: 1, name: "Stats" },
+    { id: 2, name: "Evolution" },
+    { id: 3, name: "Moves" },
+  ];
+
   return (
-    <div>{/* <div style={{ textTransform: "capitalize" }}>{name}</div> */}</div>
+    <Styles.TabsContainer>
+      <Styles.DetailsUl>
+        {tabs.map(({ id, name }) => (
+          <li key={id}>
+            <button>{name}</button>
+          </li>
+        ))}
+      </Styles.DetailsUl>
+    </Styles.TabsContainer>
   );
 };
 
@@ -107,14 +127,9 @@ const MasterContainer = ({ pokemon }: MasterContainerProps) => {
   );
 };
 
-const Pokemon = () => {
-  const [backgroundColor, setBackgroundColor] = useState(Colors.WHITE);
-
-  const {
-    query: { name },
-  } = useRouter();
-
+const Pokemon: VFC<IPokemon> = ({ name }) => {
   const { data, error, isLoading } = useGetPokemonByNameQuery(name);
+  const [backgroundColor, setBackgroundColor] = useState(Colors.WHITE);
 
   useEffect(() => {
     if (!data) return;
@@ -148,7 +163,7 @@ const Pokemon = () => {
       <Styles.GlobalStyle backgroundColor={backgroundColor} />
       <MasterContainer pokemon={data} />
       <ComponentsUiCard width="100%">
-        <Details name={name} />
+        <Details pokemon={data} />
       </ComponentsUiCard>
     </>
   );

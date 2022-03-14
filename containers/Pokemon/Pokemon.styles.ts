@@ -36,6 +36,8 @@ export const MasterContainer = styled.div`
   }
 `;
 
+export const TabsContainer = styled.div``;
+
 export const Type = styled.div<IType>`
   background-color: ${({ backgroundColor }) =>
     backgroundColor ? changeOpacity(backgroundColor, 0.15) : "none"};
@@ -46,10 +48,20 @@ export const Type = styled.div<IType>`
   text-transform: capitalize;
 `;
 
+export const DetailsUl = styled.ul`
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-around;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
 export const Ul = styled.ul`
   display: flex;
   flex-direction: row;
-  gap: 0.5rem;
+  gap: 1rem;
   list-style: none;
   margin: 0;
   padding: 0;
