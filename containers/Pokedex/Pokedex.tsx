@@ -1,4 +1,4 @@
-import { Key, useState } from "react";
+import { Key, useState, VFC } from "react";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import {
@@ -14,19 +14,27 @@ import { Colors } from "../../enum/colors";
 import * as Styles from "./Pokedex.styles";
 import Link from "next/link";
 
-type PokemonCardProps = {
-  name: string;
-};
-
-type ListProps = {
+interface IList {
   data?: any;
   error: FetchBaseQueryError | SerializedError | undefined;
   isLoading: any;
+}
+
+interface IPokedex {
+  pageNumber: number;
+}
+
+type ICard = {
+  name: string;
 };
 
 const lightBackgroundColors = [Colors.NORMAL];
 
-const Card = ({ name }: PokemonCardProps) => {
+const getUrl = (param: string) => {
+  return `/pokedex/${param}`;
+};
+
+const Card: VFC<ICard> = ({ name }) => {
   const { data, error, isLoading } = useGetPokemonByNameQuery(name);
 
   if (isLoading) {
@@ -68,7 +76,7 @@ const Card = ({ name }: PokemonCardProps) => {
       href={`/pokemon/${name}`}
       shadowColor={backgroundColor}
     >
-      <div style={{ display: "flex", height: "100%" }}>
+      <div style={{ display: "flex", gap: "1rem", height: "100%" }}>
         <div>
           <div
             style={{
@@ -95,22 +103,17 @@ const Card = ({ name }: PokemonCardProps) => {
         </div>
         <div
           style={{
-            display: "flex",
-            flexGrow: 1,
-            minWidth: "100px",
-            position: "relative",
+            margin: "auto 0 0 auto",
           }}
         >
-          <div style={{ margin: "auto 0 0 auto" }}>
-            <img alt={name} src={front_default} />
-          </div>
+          <img alt={name} src={front_default} />
         </div>
       </div>
     </ComponentsUiLinkButton>
   );
 };
 
-const List = ({ data, error, isLoading }: ListProps) => {
+const List: VFC<IList> = ({ data, error, isLoading }) => {
   if (isLoading) {
     return <ComponentsUiLoader />;
   }
@@ -128,36 +131,26 @@ const List = ({ data, error, isLoading }: ListProps) => {
 
 const LIMIT = 16;
 
-const Pokedex = () => {
-  const [pageNumber, setPageNumber] = useState(0);
+const Pokedex: VFC<IPokedex> = ({ pageNumber }) => {
   const { data, error, isLoading } = useGetPokemonQuery({
-    pageNumber,
+    pageNumber: pageNumber === 0 ? 0 : pageNumber * LIMIT,
     limit: LIMIT,
   });
 
-  const handleClickNext = () =>
-    setPageNumber((currentPageNumber) => (currentPageNumber += LIMIT));
-
-  const handleClickPrevious = () => {
-    if (pageNumber === 0) return;
-
-    setPageNumber((currentPageNumber) => (currentPageNumber -= LIMIT));
-  };
+  const nextPageNumber = pageNumber + 1;
+  const prevPageNumber = pageNumber && pageNumber - 1;
 
   return (
     <ComponentsUiCard>
       <Styles.HeaderContainer>
         <h2>Pokédex</h2>
         <Styles.PagingContainer>
-          <Styles.PagingButton
-            disabled={pageNumber === 0 || isLoading}
-            onClick={handleClickPrevious}
-          >
-            Prev
-          </Styles.PagingButton>
-          <Styles.PagingButton disabled={isLoading} onClick={handleClickNext}>
-            Next
-          </Styles.PagingButton>
+          <Link href={getUrl(prevPageNumber.toString())} passHref>
+            <Styles.PagingButton>Prev</Styles.PagingButton>
+          </Link>
+          <Link href={getUrl(nextPageNumber.toString())} passHref>
+            <Styles.PagingButton>Next</Styles.PagingButton>
+          </Link>
         </Styles.PagingContainer>
       </Styles.HeaderContainer>
       <Styles.MenuContainer>

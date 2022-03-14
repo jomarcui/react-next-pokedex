@@ -24,7 +24,7 @@ export const MenuContainer = styled.div`
   }
 `;
 
-export const PagingButton = styled.button`
+export const PagingButton = styled.a`
   background-color: ${Colors.BALL_BLUE};
   border: none;
   border-radius: 1rem;
