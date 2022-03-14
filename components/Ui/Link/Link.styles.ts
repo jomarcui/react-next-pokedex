@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { ReactNode } from "react";
 import styled from "styled-components";
 import { Colors } from "../../../enum/colors";
 import { changeOpacity, makeShadowColor } from "../../../helpers/colors";
@@ -15,7 +15,7 @@ interface IButton {
   width?: number | string;
 }
 
-export const Button = styled(Link)<IButton>`
+export const Button = styled.a<IButton>`
   background: ${({ backgroundColor, backgroundColorOpacity }) =>
       backgroundColor
         ? changeOpacity(backgroundColor, backgroundColorOpacity || 1)
@@ -39,6 +39,7 @@ export const Button = styled(Link)<IButton>`
       : "initial"};
   color: ${({ color }) => color || Colors.BLACK};
   cursor: pointer;
+  flex-grow: 1;
   font-size: 1rem;
   height: ${({ height }) => (height ? `${height}px` : "auto")};
   padding: 1rem;

@@ -1,5 +1,6 @@
-import { MouseEvent, ReactNode } from "react";
-import * as Styles from "./Button.styles";
+import Link from "next/link";
+import { FC, ReactNode } from "react";
+import * as Styles from "./Link.styles";
 
 type ButtonProps = {
   backgroundColor?: string;
@@ -8,23 +9,19 @@ type ButtonProps = {
   children?: ReactNode;
   color?: string;
   height?: number;
+  href: string;
   shadowColor?: string;
   shadowed?: boolean;
   width?: number | string;
-  handleClick?: () => void;
 };
 
-const Button = (buttonProps: ButtonProps) => {
-  const { children, handleClick: _handleClick, ...otherProps } = buttonProps;
-
-  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    if (_handleClick) _handleClick();
-  };
+const Button: FC<ButtonProps> = (buttonProps) => {
+  const { children, href, ...otherProps } = buttonProps;
 
   return (
-    <Styles.Button {...otherProps} onClick={handleClick}>
-      {children}
-    </Styles.Button>
+    <Link href={href} passHref>
+      <Styles.Button {...otherProps}>{children}</Styles.Button>
+    </Link>
   );
 };
 

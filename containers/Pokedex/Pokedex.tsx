@@ -5,7 +5,7 @@ import {
   useGetPokemonByNameQuery,
   useGetPokemonQuery,
 } from "../../services/pokemon";
-import ComponentsUiButton from "../../components/Ui/Link";
+import ComponentsUiLinkButton from "../../components/Ui/Link/Button";
 import ComponentsUiCard from "../../components/Ui/Card";
 import ComponentsUiLoader from "../../components/Ui/Loader";
 import Image from "next/image";
@@ -60,56 +60,53 @@ const Card = ({ name }: PokemonCardProps) => {
     : colorFromType;
 
   return (
-    <ComponentsUiButton
+    <ComponentsUiLinkButton
       shadowed
       backgroundColor={backgroundColor}
       backgroundColorOpacity={0.7}
       color={color}
+      href={`/pokemon/${name}`}
       shadowColor={backgroundColor}
     >
-      <Link href={`/pokemon/${name}`}>
-        <a>
-          <div style={{ display: "flex", height: "100%" }}>
-            <div>
-              <div
-                style={{
-                  fontWeight: "bold",
-                  marginBottom: "1rem",
-                  textAlign: "left",
-                  textTransform: "capitalize",
-                }}
-              >
-                {name}
-              </div>
-              <Styles.Ul>
-                {types.map(({ type }: any, i: Key) => (
-                  <li key={i}>
-                    <Styles.Type
-                      backgroundColor={typeBackgroundColor}
-                      color={color}
-                    >
-                      {type.name}
-                    </Styles.Type>
-                  </li>
-                ))}
-              </Styles.Ul>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexGrow: 1,
-                minWidth: "100px",
-                position: "relative",
-              }}
-            >
-              <div style={{ margin: "auto 0 0 auto" }}>
-                <img alt={name} src={front_default} />
-              </div>
-            </div>
+      <div style={{ display: "flex", height: "100%" }}>
+        <div>
+          <div
+            style={{
+              fontWeight: "bold",
+              marginBottom: "1rem",
+              textAlign: "left",
+              textTransform: "capitalize",
+            }}
+          >
+            {name}
           </div>
-        </a>
-      </Link>
-    </ComponentsUiButton>
+          <Styles.Ul>
+            {types.map(({ type }: any, i: Key) => (
+              <li key={i}>
+                <Styles.Type
+                  backgroundColor={typeBackgroundColor}
+                  color={color}
+                >
+                  {type.name}
+                </Styles.Type>
+              </li>
+            ))}
+          </Styles.Ul>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexGrow: 1,
+            minWidth: "100px",
+            position: "relative",
+          }}
+        >
+          <div style={{ margin: "auto 0 0 auto" }}>
+            <img alt={name} src={front_default} />
+          </div>
+        </div>
+      </div>
+    </ComponentsUiLinkButton>
   );
 };
 

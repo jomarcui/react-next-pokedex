@@ -1,10 +1,9 @@
 import { Colors } from "../../enum/colors";
 import ComponentsSearch from "../../components/Search";
-import ComponentsUiButton from "../../components/Ui/Link";
+import ComponentsUiLinkButton from "../../components/Ui/Link/Button";
 import ComponentsUiCard from "../../components/Ui/Card";
 
 import * as Styles from "./Menu.styles";
-import Link from "next/link";
 
 const menu = [
   {
@@ -48,19 +47,16 @@ const Menu = () => {
       </Styles.HeaderContainer>
       <Styles.ButtonContainer>
         {menu.map(({ backgroundColor, color, name, url }) => (
-          <ComponentsUiButton
+          <ComponentsUiLinkButton
             shadowed
             backgroundColor={backgroundColor}
             color={color}
+            href={url}
             key={name}
             shadowColor={backgroundColor}
           >
-            <div style={{ margin: "1rem" }}>
-              <Link href={url}>
-                <a>{name}</a>
-              </Link>
-            </div>
-          </ComponentsUiButton>
+            {name}
+          </ComponentsUiLinkButton>
         ))}
       </Styles.ButtonContainer>
     </ComponentsUiCard>
