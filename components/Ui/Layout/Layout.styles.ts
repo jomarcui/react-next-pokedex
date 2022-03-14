@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Screen } from "../../../enum/screen";
 
 export const Attribution = styled.a`
   color: hsl(228, 45%, 44%);
@@ -7,6 +8,10 @@ export const Attribution = styled.a`
 
 export const Container = styled.div`
   padding: 0 2rem;
+
+  @media (max-width: ${Screen.SMALL}) {
+    padding: 0;
+  }
 `;
 
 export const Footer = styled.footer`

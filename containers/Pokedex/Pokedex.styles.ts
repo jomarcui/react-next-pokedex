@@ -1,11 +1,24 @@
 import styled from "styled-components";
 import { Colors } from "../../enum/colors";
+import { Screen } from "../../enum/screen";
 import { changeOpacity } from "../../helpers/colors";
 
 interface IType {
   backgroundColor?: string;
   color?: string;
 }
+
+export const BottomPagingContainer = styled.div`
+  display: none;
+
+  @media (max-width: ${Screen.SMALL}) {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    margin-left: auto;
+    margin-top: 2rem;
+  }
+`;
 
 export const HeaderContainer = styled.div`
   align-items: center;
@@ -44,7 +57,7 @@ export const PagingButton = styled.a`
   }
 `;
 
-export const PagingContainer = styled.div`
+export const TopPagingContainer = styled.div`
   align-items: center;
   display: flex;
   gap: 1rem;

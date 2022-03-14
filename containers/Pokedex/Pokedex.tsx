@@ -144,18 +144,26 @@ const Pokedex: VFC<IPokedex> = ({ pageNumber }) => {
     <ComponentsUiCard>
       <Styles.HeaderContainer>
         <h2>Pokédex</h2>
-        <Styles.PagingContainer>
+        <Styles.TopPagingContainer>
           <Link href={getUrl(prevPageNumber.toString())} passHref>
             <Styles.PagingButton>Prev</Styles.PagingButton>
           </Link>
           <Link href={getUrl(nextPageNumber.toString())} passHref>
             <Styles.PagingButton>Next</Styles.PagingButton>
           </Link>
-        </Styles.PagingContainer>
+        </Styles.TopPagingContainer>
       </Styles.HeaderContainer>
       <Styles.MenuContainer>
         <List data={data?.results} error={error} isLoading={isLoading} />
       </Styles.MenuContainer>
+      <Styles.BottomPagingContainer>
+        <Link href={getUrl(prevPageNumber.toString())} passHref>
+          <Styles.PagingButton>Prev</Styles.PagingButton>
+        </Link>
+        <Link href={getUrl(nextPageNumber.toString())} passHref>
+          <Styles.PagingButton>Next</Styles.PagingButton>
+        </Link>
+      </Styles.BottomPagingContainer>
     </ComponentsUiCard>
   );
 };
