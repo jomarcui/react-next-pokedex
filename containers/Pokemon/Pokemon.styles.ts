@@ -13,6 +13,11 @@ interface IType {
   color?: string;
 }
 
+interface IUl {
+  flexDirection?: string;
+  justifyContent?: string;
+}
+
 export const GlobalStyle = createGlobalStyle<IGlobalStyle>`
   body, html {
     background: ${({ backgroundColor }) => backgroundColor || Colors.WHITE};
@@ -48,20 +53,11 @@ export const Type = styled.div<IType>`
   text-transform: capitalize;
 `;
 
-export const DetailsUl = styled.ul`
+export const Ul = styled.ul<IUl>`
   display: flex;
-  flex-direction: row;
+  flex-direction: ${({ flexDirection }) => flexDirection || "row"};
   gap: 1rem;
-  justify-content: space-around;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-
-export const Ul = styled.ul`
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
+  justify-content: ${({ justifyContent }) => justifyContent || "flex-start"};
   list-style: none;
   margin: 0;
   padding: 0;

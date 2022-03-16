@@ -1,4 +1,4 @@
-import { Key, useEffect, useState, VFC } from "react";
+import { Key, MouseEvent, useEffect, useState, VFC } from "react";
 import {
   useGetPokemonByNameQuery,
   useGetSpecieQuery,
@@ -11,43 +11,86 @@ import Image from "next/image";
 import { formatId } from "../../helpers/pokemon";
 
 interface IDetails {
-  pokemon: any;
+  data: any;
 }
 
-type MasterContainerProps = {
+interface IMasterContainerProps {
   pokemon: any;
-};
+}
 
 interface IPokemon {
   name: string;
 }
 
-const lightBackgroundColors = [Colors.NORMAL];
-
-const Details: VFC<IDetails> = (pokemon) => {
-  const { types } = pokemon;
+const Details: VFC<IDetails> = ({ data }) => {
+  const [selectedTabId, setSelectedTabId] = useState(0);
 
   const tabs = [
-    { id: 0, name: "About" },
-    { id: 1, name: "Stats" },
-    { id: 2, name: "Evolution" },
-    { id: 3, name: "Moves" },
+    { id: 0, name: "About", content: [] },
+    { id: 1, name: "Stats", content: data.stats },
+    { id: 2, name: "Evolution", content: [] },
+    { id: 3, name: "Moves", content: data.moves },
   ];
+
+  const selectedTab = tabs[selectedTabId];
+  const { id, content } = selectedTab;
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) =>
+    setSelectedTabId(parseInt(e.currentTarget.value));
+
+  const renderContent = (id, content) => {
+    console.log(id);
+    switch (id) {
+      case 1:
+        return (
+          <>
+            {content.map(({ base_stat, stat: { name } }, i: Key) => (
+              <li key={i}>
+                <div>{name}</div>
+                <div>{base_stat}</div>
+              </li>
+            ))}
+          </>
+        );
+        break;
+      case 3:
+        return (
+          <>
+            {content.map(({ move: { name } }, i: Key) => (
+              <li key={i}>
+                <div>{name}</div>
+              </li>
+            ))}
+          </>
+        );
+        break;
+
+      default:
+        break;
+    }
+  };
 
   return (
     <Styles.TabsContainer>
-      <Styles.DetailsUl>
+      <Styles.Ul justifyContent="space-around">
         {tabs.map(({ id, name }) => (
           <li key={id}>
-            <button>{name}</button>
+            <button onClick={handleClick} value={id}>
+              {name}
+            </button>
           </li>
         ))}
-      </Styles.DetailsUl>
+      </Styles.Ul>
+      <div>
+        <Styles.Ul flexDirection="column">
+          {renderContent(id, content)}
+        </Styles.Ul>
+      </div>
     </Styles.TabsContainer>
   );
 };
 
-const MasterContainer = ({ pokemon }: MasterContainerProps) => {
+const MasterContainer: VFC<IMasterContainerProps> = ({ pokemon }) => {
   const {
     id,
     name,
@@ -60,6 +103,8 @@ const MasterContainer = ({ pokemon }: MasterContainerProps) => {
   } = pokemon;
 
   const { data, error, isLoading } = useGetSpecieQuery(id);
+
+  const lightBackgroundColors = [Colors.NORMAL];
 
   const colorFromType = Colors[types[0].type.name.toUpperCase()];
   const color = lightBackgroundColors.includes(colorFromType)
@@ -105,15 +150,6 @@ const MasterContainer = ({ pokemon }: MasterContainerProps) => {
           >{`${data?.egg_groups
             .map(({ name }: any) => name)
             .join(", ")} Pokémon`}</span>
-          {/* <Styles.Ul>
-            {data?.egg_groups.map(({ name }: any, i: Key) => (
-              <li key={i}>
-                <span
-                  style={{ color: "white", textTransform: "capitalize" }}
-                >{`${name} Pokémon`}</span>
-              </li>
-            ))}
-          </Styles.Ul> */}
         </div>
       </div>
       <div>
@@ -129,21 +165,13 @@ const MasterContainer = ({ pokemon }: MasterContainerProps) => {
 
 const Pokemon: VFC<IPokemon> = ({ name }) => {
   const { data, error, isLoading } = useGetPokemonByNameQuery(name);
+
   const [backgroundColor, setBackgroundColor] = useState(Colors.WHITE);
 
   useEffect(() => {
     if (!data) return;
 
-    console.log(data);
-
-    const {
-      sprites: {
-        other: {
-          "official-artwork": { front_default },
-        },
-      },
-      types,
-    } = data;
+    const { types } = data;
 
     const backgroundColor = Colors[types[0].type.name.toUpperCase()];
 
@@ -163,7 +191,7 @@ const Pokemon: VFC<IPokemon> = ({ name }) => {
       <Styles.GlobalStyle backgroundColor={backgroundColor} />
       <MasterContainer pokemon={data} />
       <ComponentsUiCard width="100%">
-        <Details pokemon={data} />
+        <Details data={data} />
       </ComponentsUiCard>
     </>
   );
