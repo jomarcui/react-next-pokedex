@@ -38,7 +38,7 @@ const Details: VFC<IDetails> = ({ data }) => {
   const handleClick = (e: MouseEvent<HTMLButtonElement>) =>
     setSelectedTabId(parseInt(e.currentTarget.value));
 
-  const renderContent = (id, content) => {
+  const renderContent = (id: number, content: []) => {
     console.log(id);
     switch (id) {
       case 1:
