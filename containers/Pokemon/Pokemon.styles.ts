@@ -29,11 +29,14 @@ export const ImageContainer = styled.div`
   margin: 0 auto;
   position: relative;
   width: 200px;
-  top: 35px;
 `;
 
 export const MasterContainer = styled.div`
   width: 100%;
+
+  @media (max-width: ${Screen.SMALL}) {
+    padding: 1rem;
+  }
 
   @media (min-width: ${Screen.LARGE}) {
     width: ${Screen.LARGE} !important;

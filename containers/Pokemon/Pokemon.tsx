@@ -142,7 +142,12 @@ const MasterContainer: VFC<IMasterContainerProps> = ({ pokemon }) => {
           </Styles.Ul>
         </div>
         <div
-          style={{ alignItems: "center", display: "flex", marginLeft: "auto" }}
+          style={{
+            alignItems: "center",
+            display: "flex",
+            marginLeft: "auto",
+            textAlign: "right",
+          }}
         >
           {console.log(data?.egg_groups.map(({ name }: any) => name).join(","))}
           <span

@@ -71,7 +71,8 @@ const Card: VFC<ICard> = ({ name }) => {
     <ComponentsUiLinkButton
       shadowed
       backgroundColor={backgroundColor}
-      backgroundColorOpacity={0.7}
+      backgroundPositionX="right -20px"
+      backgroundPositionY="bottom -30px"
       color={color}
       href={`/pokemon/${name}`}
       shadowColor={backgroundColor}

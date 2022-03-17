@@ -50,12 +50,15 @@ const Menu = () => {
           <ComponentsUiLinkButton
             shadowed
             backgroundColor={backgroundColor}
+            backgroundPositionX="right -20px"
+            backgroundSize={100}
             color={color}
             href={url}
             key={name}
+            padding={2}
             shadowColor={backgroundColor}
           >
-            {name}
+            <span style={{ fontWeight: "bold" }}>{name}</span>
           </ComponentsUiLinkButton>
         ))}
       </Styles.ButtonContainer>

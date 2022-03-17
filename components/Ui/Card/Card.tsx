@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import { ReactNode, VFC } from "react";
 import * as Styles from "./Card.styles";
 
-type CardProps = {
+interface ICard {
   backgroundColor?: string;
   backgroundImageColor?: string;
   children?: ReactNode;
@@ -10,9 +10,9 @@ type CardProps = {
   shadowColor?: string;
   shadowed?: boolean;
   width?: number | string;
-};
+}
 
-const Card = (cardProps: CardProps) => {
+const Card: VFC<ICard> = (cardProps) => {
   const { children, ...otherProps } = cardProps;
   return <Styles.Card {...otherProps}>{children}</Styles.Card>;
 };

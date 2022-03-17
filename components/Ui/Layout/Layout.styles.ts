@@ -33,4 +33,8 @@ export const Title = styled.h1`
   max-width: 90%;
   position: relative;
   width: 25rem;
+
+  @media (max-width: ${Screen.SMALL}) {
+    display: none;
+  }
 `;
