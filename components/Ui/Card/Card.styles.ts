@@ -38,6 +38,7 @@ export const Card = styled.div<ICard>`
 
   @media (min-width: ${Screen.EXTRA_SMALL}) {
     background-position: 115px -238px;
+    border-radius: 0;
   }
 
   @media (min-width: ${Screen.SMALL}) {
@@ -46,6 +47,7 @@ export const Card = styled.div<ICard>`
 
   @media (min-width: ${Screen.MEDIUM}) {
     background-position: 364px -238px;
+    border-radius: 1rem;
   }
 
   @media (min-width: ${Screen.LARGE}) {

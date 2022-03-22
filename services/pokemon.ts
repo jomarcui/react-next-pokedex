@@ -9,6 +9,9 @@ export const pokemonApi = createApi({
   reducerPath: "pokemonApi",
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URI }),
   endpoints: (builder) => ({
+    getEvolutions: builder.query({
+      query: (id) => `evolution-chain/${id}`,
+    }),
     getPokemon: builder.query({
       query: ({ limit, pageNumber }) =>
         `pokemon/?limit=${limit}&offset=${pageNumber}`,
@@ -25,6 +28,7 @@ export const pokemonApi = createApi({
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
+  useGetEvolutionsQuery,
   useGetPokemonQuery,
   useGetPokemonByNameQuery,
   useGetSpecieQuery,

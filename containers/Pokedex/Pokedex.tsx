@@ -73,7 +73,7 @@ const Card: VFC<ICard> = ({ name }) => {
       backgroundColor={backgroundColor}
       backgroundPositionX="right -20px"
       backgroundPositionY="bottom -30px"
-      color={color}
+      color={Colors.WHITE}
       href={`/pokemon/${name}`}
       shadowColor={backgroundColor}
     >
@@ -94,7 +94,7 @@ const Card: VFC<ICard> = ({ name }) => {
               <li key={i}>
                 <Styles.Type
                   backgroundColor={typeBackgroundColor}
-                  color={color}
+                  color={Colors.WHITE}
                 >
                   {type.name}
                 </Styles.Type>

@@ -1,5 +1,6 @@
 import { Key, MouseEvent, useEffect, useState, VFC } from "react";
 import {
+  useGetEvolutionsQuery,
   useGetPokemonByNameQuery,
   useGetSpecieQuery,
 } from "../../services/pokemon";
@@ -11,10 +12,10 @@ import Image from "next/image";
 import { formatId } from "../../helpers/pokemon";
 
 interface IDetails {
-  data: any;
+  pokemon: any;
 }
 
-interface IMasterContainerProps {
+interface IArtworkContainer {
   pokemon: any;
 }
 
@@ -22,75 +23,40 @@ interface IPokemon {
   name: string;
 }
 
-const Details: VFC<IDetails> = ({ data }) => {
-  const [selectedTabId, setSelectedTabId] = useState(0);
+const getEvolutions = (pokemon: any) => {
+  const {
+    chain: { evolves_to },
+  } = pokemon;
 
-  const tabs = [
-    { id: 0, name: "About", content: [] },
-    { id: 1, name: "Stats", content: data.stats },
-    { id: 2, name: "Evolution", content: [] },
-    { id: 3, name: "Moves", content: data.moves },
-  ];
+  const evolutions = evolves_to.map(({ species: { name } }) => ({ name }));
 
-  const selectedTab = tabs[selectedTabId];
-  const { id, content } = selectedTab;
+  console.log("evolutions", evolutions);
 
-  const handleClick = (e: MouseEvent<HTMLButtonElement>) =>
-    setSelectedTabId(parseInt(e.currentTarget.value));
-
-  const renderContent = (id: number, content: []) => {
-    console.log(id);
-    switch (id) {
-      case 1:
-        return (
-          <>
-            {content.map(({ base_stat, stat: { name } }, i: Key) => (
-              <li key={i}>
-                <div>{name}</div>
-                <div>{base_stat}</div>
-              </li>
-            ))}
-          </>
-        );
-        break;
-      case 3:
-        return (
-          <>
-            {content.map(({ move: { name } }, i: Key) => (
-              <li key={i}>
-                <div>{name}</div>
-              </li>
-            ))}
-          </>
-        );
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  return (
-    <Styles.TabsContainer>
-      <Styles.Ul justifyContent="space-around">
-        {tabs.map(({ id, name }) => (
-          <li key={id}>
-            <button onClick={handleClick} value={id}>
-              {name}
-            </button>
-          </li>
-        ))}
-      </Styles.Ul>
-      <div>
-        <Styles.Ul flexDirection="column">
-          {renderContent(id, content)}
-        </Styles.Ul>
-      </div>
-    </Styles.TabsContainer>
-  );
+  return [];
 };
 
-const MasterContainer: VFC<IMasterContainerProps> = ({ pokemon }) => {
+const getFlavorTexts = (pokemon: any) => {
+  if (!pokemon) return [];
+
+  const enFlavorTexts = pokemon.flavor_text_entries.filter(
+    ({ language, version }: any) =>
+      language.name === "en" && version.name === "red"
+  );
+
+  const flavorTexts = enFlavorTexts.map((enFlavorText: any) => ({
+    flavor_text: enFlavorText.flavor_text
+      .replace("\f", "\n")
+      .replace("\u00ad\n", "")
+      .replace("\u00ad", "")
+      .replace(" -\n", " - ")
+      .replace("-\n", "-")
+      .replace("\n", " "),
+  }));
+
+  return flavorTexts;
+};
+
+const ArtworkContainer: VFC<IArtworkContainer> = ({ pokemon }) => {
   const {
     id,
     name,
@@ -168,6 +134,86 @@ const MasterContainer: VFC<IMasterContainerProps> = ({ pokemon }) => {
   );
 };
 
+const Details: VFC<IDetails> = ({ pokemon: { id, moves, stats } }) => {
+  const { data: specieData } = useGetSpecieQuery(id);
+  const { data: evolutionsData } = useGetEvolutionsQuery(id);
+
+  const [selectedTabId, setSelectedTabId] = useState(0);
+
+  const tabs = [
+    { id: 0, name: "About", content: getFlavorTexts(specieData) },
+    { id: 1, name: "Stats", content: stats },
+    { id: 2, name: "Evolution", content: getEvolutions(evolutionsData) },
+    { id: 3, name: "Moves", content: moves },
+  ];
+
+  const selectedTab = tabs[selectedTabId];
+  const { id: tabId, content } = selectedTab;
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) =>
+    setSelectedTabId(parseInt(e.currentTarget.value));
+
+  const renderContent = (id: number, content: []) => {
+    switch (id) {
+      case 0:
+        return (
+          <>
+            {content.map(({ flavor_text }, i: Key) => (
+              <li key={i}>
+                <div>{flavor_text}</div>
+              </li>
+            ))}
+          </>
+        );
+
+      case 1:
+        return (
+          <>
+            {content.map(({ base_stat, stat: { name } }, i: Key) => (
+              <li key={i}>
+                <div>{name}</div>
+                <div>{base_stat}</div>
+              </li>
+            ))}
+          </>
+        );
+
+      case 3:
+        return (
+          <>
+            {content.map(({ move: { name } }, i: Key) => (
+              <li key={i}>
+                <div>{name}</div>
+              </li>
+            ))}
+          </>
+        );
+
+      default:
+        break;
+    }
+  };
+
+  return (
+    <Styles.TabsContainer>
+      <Styles.Ul justifyContent="space-around">
+        {tabs.map(({ id, name }) => (
+          <li key={id}>
+            <button onClick={handleClick} value={id}>
+              {name}
+            </button>
+          </li>
+        ))}
+      </Styles.Ul>
+      <div>
+        <Styles.Ul flexDirection="column">
+          {renderContent(tabId, content)}
+        </Styles.Ul>
+      </div>
+    </Styles.TabsContainer>
+  );
+};
+
 const Pokemon: VFC<IPokemon> = ({ name }) => {
   const { data, error, isLoading } = useGetPokemonByNameQuery(name);
 
@@ -194,9 +240,9 @@ const Pokemon: VFC<IPokemon> = ({ name }) => {
   return (
     <>
       <Styles.GlobalStyle backgroundColor={backgroundColor} />
-      <MasterContainer pokemon={data} />
+      <ArtworkContainer pokemon={data} />
       <ComponentsUiCard width="100%">
-        <Details data={data} />
+        <Details pokemon={data} />
       </ComponentsUiCard>
     </>
   );
